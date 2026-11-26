@@ -11,7 +11,6 @@ import {
   MonitorPlay,
   Play,
   Sliders,
-  Sparkles,
   Swords,
   User,
   Users,
@@ -88,7 +87,7 @@ export function LandingPage() {
       ========================================================= */}
       <section
         id="beranda"
-        className="relative w-full min-h-[560px] h-[calc(100vh-4rem)] max-h-[1080px] flex items-center overflow-hidden bg-gradient-to-br from-[#1677B8] via-[#1C4D75] to-[#24394D] text-white"
+        className="relative w-full min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] max-h-[1080px] flex items-start overflow-hidden bg-gradient-to-br from-[#1677B8] via-[#1C4D75] to-[#24394D] text-white"
       >
         {!heroImageFailed && (
           <img
@@ -100,41 +99,43 @@ export function LandingPage() {
           />
         )}
 
-        {/* High-contrast directional gradient scrim so text stays sharp over full-bleed photo */}
+        {/* High-contrast directional gradient scrim so upper title and lower buttons stay crisp */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[#0E2235]/88 via-[#153654]/68 to-[#1677B8]/15"
+          className="absolute inset-0 bg-gradient-to-r from-[#0B1F33]/85 via-[#123352]/55 to-[#1677B8]/10"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[#0E2235]/60 via-transparent to-[#0E2235]/20"
+          className="absolute inset-0 bg-gradient-to-b from-[#0B1F33]/45 via-transparent to-[#0B1F33]/65"
         />
 
-        <div className="relative z-10 max-w-[1440px] w-full mx-auto px-5 sm:px-8 lg:px-12 py-12">
-          <div className="max-w-xl space-y-5">
-            <div className="space-y-2.5">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#F4C85A]">
-                <Sparkles className="w-4 h-4 text-[#F4C85A] fill-[#F4C85A]" />
-                <span>Perjalanan Setetes Air di Alam</span>
+        <div className="relative z-10 max-w-[1440px] w-full mx-auto px-5 sm:px-8 lg:px-14 pt-10 sm:pt-12 lg:pt-14 xl:pt-16 pb-10 sm:pb-12">
+          <div className="min-h-[430px] sm:min-h-[460px] lg:min-h-[480px] xl:min-h-[580px] flex flex-col justify-between gap-10">
+            {/* Upper Hero Block: Kicker, Main Title & Professional Website Introduction */}
+            <div className="max-w-2xl space-y-4 sm:space-y-5">
+              <div className="space-y-1.5 sm:space-y-2">
+                <p className="font-display text-sm sm:text-base lg:text-lg font-bold tracking-wide text-[#F4C85A]">
+                  Perjalanan Setetes Air di Alam
+                </p>
+                <h1 className="font-hero text-5xl sm:text-6xl lg:text-[4.75rem] xl:text-[5.5rem] font-bold text-white leading-[0.98] tracking-wide drop-shadow-[0_4px_20px_rgba(11,31,51,0.45)]">
+                  WATER <span className="text-[#70C8E8]">CYCLE</span>
+                </h1>
               </div>
-              <h1 className="font-hero text-5xl sm:text-6xl xl:text-[5rem] font-bold text-white leading-[1.02] tracking-wide drop-shadow-[0_4px_18px_rgba(14,34,53,0.45)]">
-                WATER <span className="text-[#70C8E8]">CYCLE</span>
-              </h1>
+
+              <p className="max-w-xl text-sm sm:text-base lg:text-[1.1rem] text-white/92 leading-relaxed font-normal">
+                Platform edukasi digital interaktif untuk pembelajaran IPAS Kelas V SD/MI di
+                Indonesia. Menggabungkan materi siklus air terstruktur, peta jelajah dunia
+                beranimasi, simulasi ilmiah, permainan edukatif, serta Mode Kelas untuk papan tulis
+                interaktif.
+              </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-lg text-white/92 leading-relaxed font-medium">
-              Ikuti petualangan seru <strong className="font-bold text-[#F4C85A]">Aqua</strong>,
-              tetesan air yang berputar dari lautan luas menuju langit, membentuk awan di{' '}
-              <em>Kerajaan Awan</em>, turun sebagai hujan di <em>Pegunungan Hujan</em>, lalu
-              mengalir kembali ke laut.
-            </p>
-
-            {/* Slim, sleek hero action buttons */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+            {/* Lower Hero Block: Slim Action Buttons Positioned Cleanly Below */}
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-4">
               <Link
                 to="/play"
                 onClick={() => audioService.playWaterDrop()}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm shadow-sm transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm shadow-sm transition-colors whitespace-nowrap shrink-0"
               >
                 <Play className="w-4 h-4 fill-[#24394D]" />
                 Mulai Petualangan
@@ -142,7 +143,7 @@ export function LandingPage() {
               <Link
                 to="/learn/explore"
                 onClick={() => audioService.playClick()}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-display font-bold text-sm transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-xs border border-white/30 text-white font-display font-bold text-sm transition-colors whitespace-nowrap shrink-0"
               >
                 <Compass className="w-4 h-4 text-[#70C8E8]" />
                 Jelajah Dunia
@@ -150,7 +151,7 @@ export function LandingPage() {
               <Link
                 to="/guide"
                 onClick={() => audioService.playClick()}
-                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-white/95 hover:text-[#F4C85A] font-display font-bold text-sm transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-white/95 hover:text-[#F4C85A] font-display font-bold text-sm transition-colors whitespace-nowrap shrink-0"
               >
                 Cara Bermain
                 <ArrowRight className="w-3.5 h-3.5" />

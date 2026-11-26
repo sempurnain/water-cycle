@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
+  BookOpen,
   School,
   Users,
   Monitor,
@@ -33,6 +34,7 @@ export function TeacherLayout({
 
   const links = [
     { label: 'Ringkasan', to: '/teacher/dashboard', icon: LayoutDashboard },
+    { label: 'Pegangan Guru', to: '/teacher/handbook', icon: BookOpen },
     { label: 'Kelola Kelas', to: '/teacher/classes', icon: School },
     { label: 'Kelola Siswa', to: '/teacher/students', icon: Users },
     { label: 'Sesi Kelas', to: '/teacher/sessions', icon: Monitor },
@@ -58,7 +60,7 @@ export function TeacherLayout({
             </h1>
             <span className="text-xs font-bold text-[#1677B8] inline-flex items-center gap-1.5">
               <Database className="w-3.5 h-3.5" />
-              {isDemoMode ? 'Mode DEMO Lokal (Data tidak ke Cloud)' : 'Cloud Firestore Aktif'}
+              Cloud Firestore Aktif
             </span>
           </div>
 

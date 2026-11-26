@@ -18,6 +18,7 @@ import { GameResultsPage } from './pages/GameResultsPage';
 import { AchievementsPage } from './pages/AchievementsPage';
 import { ClassroomModePage } from './pages/ClassroomModePage';
 import { TeacherLoginPage } from './pages/teacher/TeacherLoginPage';
+import { TeacherHandbookPage } from './pages/teacher/TeacherHandbookPage';
 import { TeacherDashboardPage } from './pages/teacher/TeacherDashboardPage';
 import { TeacherClassesPage } from './pages/teacher/TeacherClassesPage';
 import { TeacherStudentsPage } from './pages/teacher/TeacherStudentsPage';
@@ -109,6 +110,7 @@ function AppShell() {
           <Route path="/achievements" element={<AchievementsPage />} />
 
           <Route path="/teacher/login" element={<TeacherLoginPage />} />
+          <Route path="/teacher/handbook" element={<TeacherHandbookPage />} />
           <Route path="/teacher/dashboard" element={<TeacherDashboardPage />} />
           <Route path="/teacher/classes" element={<TeacherClassesPage />} />
           <Route path="/teacher/students" element={<TeacherStudentsPage />} />

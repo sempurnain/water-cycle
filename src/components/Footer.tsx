@@ -82,6 +82,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/teacher/handbook" className="hover:text-[#F4C85A] transition-colors">
+                  Pegangan Guru (Bacaan, PPT &amp; LKPD)
+                </Link>
+              </li>
+              <li>
                 <Link to="/teacher/login" className="hover:text-[#F4C85A] transition-colors">
                   Portal &amp; Dasbor Guru
                 </Link>

@@ -25,7 +25,7 @@ export class ErrorBoundary extends Component<{ children: React.ReactNode }, Stat
       try {
         const parsed = JSON.parse(this.state.message);
         if (parsed && parsed.operationType) {
-          friendly = `Akses data (${parsed.operationType}) memerlukan autentikasi guru yang valid atau mode DEMO.`;
+          friendly = `Akses data (${parsed.operationType}) memerlukan autentikasi akun Google guru yang valid.`;
         }
       } catch {
         if (this.state.message) {
@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<{ children: React.ReactNode }, Stat
               type="button"
               onClick={() => {
                 this.setState({ hasError: false, message: '' });
-                window.location.href = '/';
+                window.location.href = import.meta.env.BASE_URL;
               }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1677B8] text-white font-display font-bold text-sm hover:bg-[#126298] transition-colors cursor-pointer"
             >

@@ -23,6 +23,9 @@ export function Navbar() {
     if (item.hash) {
       return location.pathname === '/' && location.hash === item.hash;
     }
+    if (item.to === '/teacher/login') {
+      return location.pathname.startsWith('/teacher');
+    }
     return location.pathname.startsWith(item.to);
   };
 
