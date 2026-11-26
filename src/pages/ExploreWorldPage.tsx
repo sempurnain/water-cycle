@@ -15,13 +15,14 @@ import { EXPLORE_REGIONS } from '../data/waterCycleData';
 import { RegionId, WaterCycleStage } from '../types';
 import { useAppStore } from '../store/useAppStore';
 import { audioService } from '../services/audioService';
+import { assetUrl } from '../utils/assetUrl';
 
 const REGION_ARTWORKS: Record<RegionId, string> = {
-  'sunlight-island': '/src/assets/images/dest_sunlight_island_1795183950741.jpg',
-  'cloud-kingdom': '/src/assets/images/dest_cloud_kingdom_1795183949963.jpg',
-  'rainy-mountain': '/src/assets/images/dest_rainy_mountain_1795183950774.jpg',
-  'river-valley': '/src/assets/images/dest_river_valley_1795183949169.jpg',
-  'forest-of-life': '/src/assets/images/dest_forest_life_1795183950994.jpg',
+  'sunlight-island': assetUrl('src/assets/images/dest_sunlight_island_1795183950741.jpg'),
+  'cloud-kingdom': assetUrl('src/assets/images/dest_cloud_kingdom_1795183949963.jpg'),
+  'rainy-mountain': assetUrl('src/assets/images/dest_rainy_mountain_1795183950774.jpg'),
+  'river-valley': assetUrl('src/assets/images/dest_river_valley_1795183949169.jpg'),
+  'forest-of-life': assetUrl('src/assets/images/dest_forest_life_1795183950994.jpg'),
 };
 
 const REGION_HOTSPOTS: Record<

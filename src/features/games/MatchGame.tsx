@@ -3,6 +3,7 @@ import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { GameResultRecord } from '../../types';
 import { audioService } from '../../services/audioService';
+import { assetUrl } from '../../utils/assetUrl';
 
 interface MatchRound {
   id: string;
@@ -17,7 +18,7 @@ interface MatchRound {
 const MATCH_ROUNDS: MatchRound[] = [
   {
     id: 'm1',
-    imageUrl: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
     clue: 'Air laut terkena sinar matahari terik dan perlahan berubah menjadi gas tak terlihat naik ke udara.',
     correctName: 'Evaporasi',
     correctExplanation: 'Perubahan air cair menjadi gas uap air akibat menerima panas Matahari.',
@@ -30,7 +31,7 @@ const MATCH_ROUNDS: MatchRound[] = [
   },
   {
     id: 'm2',
-    imageUrl: '/src/assets/images/learning_kondensasi_1795181992873.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_kondensasi_1795181992873.jpg'),
     clue: 'Di langit tinggi yang dingin, uap air berkumpul membentuk awan putih lembut.',
     correctName: 'Kondensasi',
     correctExplanation: 'Uap air mendingin di atmosfer dan mengembun menjadi tetesan air kecil atau kristal es.',
@@ -43,7 +44,7 @@ const MATCH_ROUNDS: MatchRound[] = [
   },
   {
     id: 'm3',
-    imageUrl: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
     clue: 'Awan yang sudah penuh dan berat menjatuhkan butiran air hujan ke pegunungan dan sawah.',
     correctName: 'Presipitasi',
     correctExplanation: 'Jatuhnya tetesan air dari atmosfer ke Bumi akibat gaya gravitasi.',
@@ -56,7 +57,7 @@ const MATCH_ROUNDS: MatchRound[] = [
   },
   {
     id: 'm4',
-    imageUrl: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
     clue: 'Air hujan menyusuri sungai dan danau di lembah hijau hingga kembali bermuara ke laut.',
     correctName: 'Pengumpulan',
     correctExplanation: 'Terkumpulnya air hujan di sungai, danau, resapan tanah, dan laut.',

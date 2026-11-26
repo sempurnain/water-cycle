@@ -31,6 +31,7 @@ import {
 import { useAppStore } from '../store/useAppStore';
 import { audioService } from '../services/audioService';
 import { RegionId, WaterCycleStage } from '../types';
+import { assetUrl } from '../utils/assetUrl';
 
 const HERO_STAGES: {
   id: WaterCycleStage | 'all';
@@ -74,7 +75,7 @@ const STORY_STAGES = [
     step: '01',
     title: 'Evaporasi (Penguapan)',
     subtitle: 'Air Cair Menjadi Uap Air',
-    image: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    image: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
     accent: '#F4C85A',
     accentText: '#8A6300',
     description:
@@ -85,7 +86,7 @@ const STORY_STAGES = [
     step: '02',
     title: 'Kondensasi (Pengembunan)',
     subtitle: 'Pembentukan Awan di Langit',
-    image: '/src/assets/images/learning_kondensasi_1795181992873.jpg',
+    image: assetUrl('src/assets/images/learning_kondensasi_1795181992873.jpg'),
     accent: '#70C8E8',
     accentText: '#1677B8',
     description:
@@ -96,7 +97,7 @@ const STORY_STAGES = [
     step: '03',
     title: 'Presipitasi (Hujan)',
     subtitle: 'Turunnya Air ke Bumi',
-    image: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    image: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
     accent: '#1677B8',
     accentText: '#1677B8',
     description:
@@ -107,7 +108,7 @@ const STORY_STAGES = [
     step: '04',
     title: 'Pengumpulan Air',
     subtitle: 'Aliran Sungai & Resapan Tanah',
-    image: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    image: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
     accent: '#83BC7A',
     accentText: '#3E7537',
     description:
@@ -117,14 +118,14 @@ const STORY_STAGES = [
 ];
 
 const DESTINATION_IMAGES: Record<RegionId, string> = {
-  'sunlight-island': '/src/assets/images/dest_sunlight_island_1795183950741.jpg',
-  'cloud-kingdom': '/src/assets/images/dest_cloud_kingdom_1795183949963.jpg',
-  'rainy-mountain': '/src/assets/images/dest_rainy_mountain_1795183950774.jpg',
-  'river-valley': '/src/assets/images/dest_river_valley_1795183949169.jpg',
-  'forest-of-life': '/src/assets/images/dest_forest_life_1795183950994.jpg',
+  'sunlight-island': assetUrl('src/assets/images/dest_sunlight_island_1795183950741.jpg'),
+  'cloud-kingdom': assetUrl('src/assets/images/dest_cloud_kingdom_1795183949963.jpg'),
+  'rainy-mountain': assetUrl('src/assets/images/dest_rainy_mountain_1795183950774.jpg'),
+  'river-valley': assetUrl('src/assets/images/dest_river_valley_1795183949169.jpg'),
+  'forest-of-life': assetUrl('src/assets/images/dest_forest_life_1795183950994.jpg'),
 };
 
-const FINAL_CTA_ARTWORK = '/src/assets/images/cta_aqua_horizon_1795183950182.jpg';
+const FINAL_CTA_ARTWORK = assetUrl('src/assets/images/cta_aqua_horizon_1795183950182.jpg');
 
 const VAPOR_PARTICLES = [12, 24, 38, 52, 66, 78, 88];
 const RAIN_STREAKS = [18, 28, 37, 46, 56, 65, 74, 83, 91];

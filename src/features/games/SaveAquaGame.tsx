@@ -3,6 +3,7 @@ import { ShieldAlert, Star, CheckCircle2, ArrowRight, Sparkles } from 'lucide-re
 import { useAppStore } from '../../store/useAppStore';
 import { GameResultRecord } from '../../types';
 import { audioService } from '../../services/audioService';
+import { assetUrl } from '../../utils/assetUrl';
 
 interface AdventureLevel {
   id: number;
@@ -20,7 +21,7 @@ const ADVENTURE_LEVELS: AdventureLevel[] = [
   {
     id: 1,
     regionName: 'Level 1 · Sunlight Island',
-    imageUrl: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
     obstacleTitle: 'Rintangan: Panas Terik di Permukaan Laut',
     story:
       'Aqua terjebak di teluk laut yang tenang. Untuk bisa terbang memulai perjalanan, Aqua membutuhkan dorongan energi alam.',
@@ -38,7 +39,7 @@ const ADVENTURE_LEVELS: AdventureLevel[] = [
   {
     id: 2,
     regionName: 'Level 2 · Cloud Kingdom',
-    imageUrl: '/src/assets/images/learning_kondensasi_1795181992873.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_kondensasi_1795181992873.jpg'),
     obstacleTitle: 'Rintangan: Lapisan Udara Sangat Dingin',
     story:
       'Kini Aqua berada tinggi di angkasa! Suhu udara di sekitar terasa sangat dingin.',
@@ -55,7 +56,7 @@ const ADVENTURE_LEVELS: AdventureLevel[] = [
   {
     id: 3,
     regionName: 'Level 3 · Rainy Mountain',
-    imageUrl: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
     obstacleTitle: 'Rintangan: Awan Terlalu Padat dan Berat',
     story:
       'Aqua bergabung dengan jutaan tetesan air lainnya. Awan menjadi sangat tebal dan berat!',
@@ -73,7 +74,7 @@ const ADVENTURE_LEVELS: AdventureLevel[] = [
   {
     id: 4,
     regionName: 'Level 4 · River Valley',
-    imageUrl: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
     obstacleTitle: 'Rintangan: Sampah Menumpuk di Aliran Sungai',
     story:
       'Aqua mengalir di sungai menuju laut, namun menemui tumpukan sampah plastik di tepi sungai.',
@@ -91,7 +92,7 @@ const ADVENTURE_LEVELS: AdventureLevel[] = [
   {
     id: 5,
     regionName: 'Level 5 · Forest of Life',
-    imageUrl: '/src/assets/images/aqua_hero_artwork_1795181990401.jpg',
+    imageUrl: assetUrl('src/assets/images/aqua_hero_artwork_1795181990401.jpg'),
     obstacleTitle: 'Rintangan Terakhir: Lereng Hutan Gundul',
     story:
       'Sebagian lereng bukit gundul sehingga air hujan mengalir terlalu cepat tanpa sempat meresap ke tanah.',

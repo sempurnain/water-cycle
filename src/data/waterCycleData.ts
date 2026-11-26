@@ -6,8 +6,9 @@ import {
   MissionItem,
   SquadRole,
 } from '../types';
+import { assetUrl } from '../utils/assetUrl';
 
-export const HERO_ARTWORK_URL = '/src/assets/images/aqua_hero_artwork_1795181990401.jpg';
+export const HERO_ARTWORK_URL = assetUrl('src/assets/images/aqua_hero_artwork_1795181990401.jpg');
 
 export const CHARACTER_PROFILES = [
   {
@@ -87,7 +88,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Apa Itu Siklus Air?',
     subtitle: 'Perjalanan air yang terus berputar di Bumi',
     stageTag: 'Konsep Dasar',
-    imageUrl: '/src/assets/images/aqua_hero_artwork_1795181990401.jpg',
+    imageUrl: assetUrl('src/assets/images/aqua_hero_artwork_1795181990401.jpg'),
     explanation:
       'Siklus air adalah perputaran air secara terus-menerus dari permukaan Bumi ke atmosfer (udara) lalu kembali lagi ke Bumi. Jumlah air di Bumi selalu tetap, hanya wujud dan tempatnya yang berubah-ubah.',
     keyPoints: [
@@ -117,7 +118,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Evaporasi (Penguapan)',
     subtitle: 'Air cair berubah menjadi uap air karena panas',
     stageTag: 'Tahap 1 · Penguapan',
-    imageUrl: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
     explanation:
       'Evaporasi adalah proses berubahnya air cair di laut, danau, sungai, dan sawah menjadi gas uap air yang tidak terlihat karena menerima energi panas dari Matahari.',
     keyPoints: [
@@ -147,7 +148,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Kondensasi (Pengembunan)',
     subtitle: 'Uap air mendingin menjadi tetesan air pembentuk awan',
     stageTag: 'Tahap 2 · Pembentukan Awan',
-    imageUrl: '/src/assets/images/learning_kondensasi_1795181992873.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_kondensasi_1795181992873.jpg'),
     explanation:
       'Ketika uap air naik semakin tinggi ke atmosfer, suhu udara menjadi sangat dingin. Uap air melepaskan panas dan berubah kembali menjadi tetesan air cair yang sangat kecil atau kristal es yang berkumpul membentuk awan.',
     keyPoints: [
@@ -177,7 +178,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Presipitasi (Hujan)',
     subtitle: 'Air jatuh dari awan ke permukaan Bumi',
     stageTag: 'Tahap 3 · Hujan',
-    imageUrl: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
     explanation:
       'Di dalam awan, jutaan tetesan air kecil saling bertumbukan dan bergabung menjadi tetesan yang lebih besar. Ketika sudah terlalu berat untuk ditahan oleh arus udara, tetesan air jatuh ke Bumi sebagai hujan (presipitasi).',
     keyPoints: [
@@ -207,7 +208,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Pengumpulan Air (Collection)',
     subtitle: 'Air mengalir kembali ke sungai, danau, tanah, dan laut',
     stageTag: 'Tahap 4 · Aliran & Penyerapan',
-    imageUrl: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
     explanation:
       'Air hujan yang jatuh ke daratan mengalir melalui parit, sungai, danau, dan sawah menuju laut (aliran permukaan). Sebagian air juga meresap ke dalam tanah (infiltrasi) menjadi cadangan air tanah.',
     keyPoints: [
@@ -237,7 +238,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Peran Matahari dalam Siklus Air',
     subtitle: 'Mesin pemanas utama yang memulai penguapan',
     stageTag: 'Penggerak Energi',
-    imageUrl: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
     explanation:
       'Tanpa energi panas Matahari, air di laut dan sungai tidak dapat menguap dengan cepat. Panas Matahari juga menghangatkan udara sehingga uap air naik ke atmosfer dan menggerakkan angin pembawa awan.',
     keyPoints: [
@@ -267,7 +268,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Peran Gravitasi dalam Siklus Air',
     subtitle: 'Gaya tarik Bumi yang membawa air kembali ke bawah',
     stageTag: 'Gaya Penggerak',
-    imageUrl: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
     explanation:
       'Jika Matahari mengangkat uap air ke atas, gaya gravitasi Bumi menarik air kembali ke bawah! Gravitasi membuat hujan jatuh ke permukaan Bumi, air sungai mengalir ke laut, dan air meresap ke dalam tanah.',
     keyPoints: [
@@ -297,7 +298,7 @@ export const LEARNING_MATERIALS: LearningMaterial[] = [
     title: 'Siklus Air dalam Kehidupan & Transpirasi',
     subtitle: 'Menjaga hutan dan air bersih di sekitar kita',
     stageTag: 'Penerapan Nyata',
-    imageUrl: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
     explanation:
       'Tumbuhan ikut membantu siklus air melalui transpirasi, yaitu pelepasan uap air dari permukaan daun. Menjaga hutan, tidak membuang sampah ke sungai, dan membuat biopori membantu siklus air tetap sehat bagi manusia.',
     keyPoints: [

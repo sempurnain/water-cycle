@@ -3,6 +3,7 @@ import { CheckCircle2, RotateCcw, ArrowRight, Sparkles } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { GameResultRecord } from '../../types';
 import { audioService } from '../../services/audioService';
+import { assetUrl } from '../../utils/assetUrl';
 
 interface StageCard {
   id: 'evaporasi' | 'kondensasi' | 'presipitasi' | 'pengumpulan';
@@ -16,25 +17,25 @@ const STAGE_CARDS: StageCard[] = [
     id: 'evaporasi',
     label: 'Evaporasi',
     hint: 'Air laut hangat berubah menjadi gas uap air naik ke udara',
-    imageUrl: '/src/assets/images/learning_evaporasi_1795181990510.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_evaporasi_1795181990510.jpg'),
   },
   {
     id: 'kondensasi',
     label: 'Kondensasi',
     hint: 'Uap air mendingin menjadi tetesan air kecil pembentuk awan',
-    imageUrl: '/src/assets/images/learning_kondensasi_1795181992873.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_kondensasi_1795181992873.jpg'),
   },
   {
     id: 'presipitasi',
     label: 'Presipitasi',
     hint: 'Tetesan air di awan yang berat jatuh ke Bumi sebagai hujan',
-    imageUrl: '/src/assets/images/learning_presipitasi_1795181993117.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_presipitasi_1795181993117.jpg'),
   },
   {
     id: 'pengumpulan',
     label: 'Pengumpulan',
     hint: 'Air mengalir melalui sungai, danau, dan tanah kembali ke laut',
-    imageUrl: '/src/assets/images/learning_pengumpulan_1795181992159.jpg',
+    imageUrl: assetUrl('src/assets/images/learning_pengumpulan_1795181992159.jpg'),
   },
 ];
 

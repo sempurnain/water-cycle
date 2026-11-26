@@ -112,7 +112,7 @@ function AppShell() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppShell />
       </BrowserRouter>
     </ErrorBoundary>
