@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-ocean: #1677B8;
+  --color-sky: #70C8E8;
+  --color-nature: #83BC7A;
+  --color-sunlight: #F4C85A;
+  --color-cloud: #F4F7FA;
+  --color-navy: #24394D;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #24394D;
+    background-color: #F4F7FA;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes aquaFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes cloudDrift {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+}
+
+.animate-aqua-float {
+  animation: aquaFloat 4.8s ease-in-out infinite;
+}
+
+.animate-cloud-drift {
+  animation: cloudDrift 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

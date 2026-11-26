@@ -1,0 +1,8 @@
+{
+  "name": "WATER CYCLE — The Journey of a Water Drop",
+  "description": "Petualangan belajar interaktif 3D dan permainan edukatif siklus air (IPAS SD Kelas V) dengan mode Solo, Duel, Squad, Simulasi 3D, dan Classroom Mode Smartboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

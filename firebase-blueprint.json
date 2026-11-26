@@ -1,0 +1,188 @@
+{
+  "entities": {
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Authenticated teacher profile isolated to owner UID.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "schoolName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "schoolName", "createdAt", "updatedAt"]
+    },
+    "ClassroomClass": {
+      "title": "ClassroomClass",
+      "description": "Elementary school class managed by a teacher.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "grade": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "academicYear": { "type": "string", "minLength": 4, "maxLength": 20 },
+        "studentCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "name", "grade", "academicYear", "studentCount", "createdAt", "updatedAt"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Minimal student learning profile without unnecessary PII.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "classId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "nickname": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "studentNumber": { "type": "string", "minLength": 1, "maxLength": 20 },
+        "totalScore": { "type": "integer" },
+        "totalStars": { "type": "integer" },
+        "level": { "type": "integer" },
+        "evaluationAverage": { "type": "integer" },
+        "missionsCompleted": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "classId", "nickname", "studentNumber", "totalScore", "totalStars", "level", "evaluationAverage", "missionsCompleted", "createdAt", "updatedAt"]
+    },
+    "ClassroomSession": {
+      "title": "ClassroomSession",
+      "description": "Interactive Smartboard classroom session controlled by a teacher.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "classId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "sessionCode": { "type": "string", "minLength": 4, "maxLength": 12, "pattern": "^[A-Z0-9]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "mode": { "type": "string", "enum": ["solo", "duel", "squad"] },
+        "activityType": { "type": "string", "enum": ["arrange", "match", "build", "save-aqua", "simulator"] },
+        "status": { "type": "string", "enum": ["waiting", "active", "paused", "completed"] },
+        "currentStep": { "type": "integer" },
+        "allowFreeAccess": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "classId", "sessionCode", "title", "mode", "activityType", "status", "currentStep", "allowFreeAccess", "createdAt", "updatedAt"]
+    },
+    "SessionParticipant": {
+      "title": "SessionParticipant",
+      "description": "Participant or team slot inside a classroom session.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "sessionId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "role": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "score": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "sessionId", "displayName", "role", "score", "createdAt", "updatedAt"]
+    },
+    "Attempt": {
+      "title": "Attempt",
+      "description": "Recorded game or evaluation attempt for a student.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "classId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "studentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "type": { "type": "string", "enum": ["game", "evaluation", "mission"] },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "score": { "type": "integer" },
+        "maxScore": { "type": "integer" },
+        "correctCount": { "type": "integer" },
+        "wrongCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "classId", "studentId", "type", "title", "score", "maxScore", "correctCount", "wrongCount", "createdAt"]
+    },
+    "Progress": {
+      "title": "Progress",
+      "description": "Student progress across regions and missions.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "studentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "missionId": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "completed": { "type": "boolean" },
+        "bestScore": { "type": "integer" },
+        "stars": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "studentId", "missionId", "completed", "bestScore", "stars", "createdAt", "updatedAt"]
+    },
+    "Achievement": {
+      "title": "Achievement",
+      "description": "Unlocked achievement badge for a student.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "studentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "badgeId": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "studentId", "badgeId", "title", "createdAt"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Teacher-curated custom evaluation question.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "type": { "type": "string", "enum": ["multiple-choice", "true-false", "matching", "diagram-fill"] },
+        "topic": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "prompt": { "type": "string", "minLength": 3, "maxLength": 400 },
+        "options": { "type": "array" },
+        "correctAnswer": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "explanation": { "type": "string", "minLength": 3, "maxLength": 400 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teacherId", "type", "topic", "prompt", "options", "correctAnswer", "explanation", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/Teacher" },
+      "description": "Teacher profile documents keyed by Firebase Auth UID."
+    },
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/ClassroomClass" },
+      "description": "Classes owned by teachers."
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Student learning records belonging to a teacher class."
+    },
+    "/sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/ClassroomSession" },
+      "description": "Interactive Smartboard classroom sessions."
+    },
+    "/session_participants/{participantId}": {
+      "schema": { "$ref": "#/entities/SessionParticipant" },
+      "description": "Participants linked to a classroom session."
+    },
+    "/attempts/{attemptId}": {
+      "schema": { "$ref": "#/entities/Attempt" },
+      "description": "Immutable learning & evaluation attempt records."
+    },
+    "/progress/{progressId}": {
+      "schema": { "$ref": "#/entities/Progress" },
+      "description": "Student mission progress records."
+    },
+    "/achievements/{achievementId}": {
+      "schema": { "$ref": "#/entities/Achievement" },
+      "description": "Student achievement badge awards."
+    },
+    "/questions/{questionId}": {
+      "schema": { "$ref": "#/entities/Question" },
+      "description": "Custom IPAS evaluation questions added by teachers."
+    }
+  }
+}
