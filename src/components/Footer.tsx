@@ -1,33 +1,36 @@
 import { Link } from 'react-router-dom';
+import { Github, Instagram, Mail, MessageCircle } from 'lucide-react';
 
 export function Footer() {
   return (
     <footer className="bg-[#24394D] text-[#F4F7FA] border-t border-white/10">
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-          <div className="md:col-span-5">
-            <p className="font-display text-2xl font-extrabold text-white tracking-tight mb-1.5">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10">
+          <div className="md:col-span-4">
+            <p className="font-hero text-2xl font-bold text-white tracking-wide mb-1.5">
               WATER CYCLE
             </p>
-            <p className="text-sm text-[#70C8E8] font-semibold mb-4">
+            <p className="text-sm text-[#70C8E8] font-semibold mb-3.5">
               Perjalanan Setetes Air · IPAS Kelas V SD/MI
             </p>
-            <p className="text-sm text-white/75 leading-relaxed max-w-md mb-5">
-              Website petualangan belajar interaktif untuk mata pelajaran IPAS Kelas V SD/MI di Indonesia. Menggabungkan galeri jelajah dunia animasi, simulasi ilmiah siklus air, permainan edukatif, dan Mode Kelas papan tulis interaktif.
+            <p className="text-sm text-white/75 leading-relaxed max-w-md mb-4">
+              Website petualangan belajar interaktif untuk mata pelajaran IPAS Kelas V SD/MI di
+              Indonesia. Menggabungkan galeri jelajah dunia animasi, simulasi ilmiah siklus air,
+              permainan edukatif, dan Mode Kelas papan tulis interaktif.
             </p>
             <p className="text-xs font-semibold text-[#F4C85A]">
               Materi Utama: Siklus Air · IPAS Sekolah Dasar Indonesia
             </p>
           </div>
 
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <h2 className="font-display text-sm font-extrabold text-white mb-4">
               Navigasi Siswa
             </h2>
             <ul className="space-y-2.5 text-sm text-white/80">
               <li>
                 <Link to="/play" className="hover:text-[#F4C85A] transition-colors">
-                  Pilih Mode (Mandiri, Duel, Kelompok)
+                  Pilih Mode Bermain
                 </Link>
               </li>
               <li>
@@ -37,7 +40,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/learn/explore" className="hover:text-[#F4C85A] transition-colors">
-                  Jelajah Dunia Animasi
+                  Jelajah Dunia
                 </Link>
               </li>
               <li>
@@ -47,7 +50,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/learn/games" className="hover:text-[#F4C85A] transition-colors">
-                  Empat Permainan Mini
+                  Permainan Mini
                 </Link>
               </li>
               <li>
@@ -58,7 +61,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <h2 className="font-display text-sm font-extrabold text-white mb-4">
               Guru &amp; Panduan Kelas
             </h2>
@@ -85,8 +88,58 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/classroom/AQUA5A" className="hover:text-[#F4C85A] transition-colors">
-                  Buka Mode Kelas Smartboard
+                  Mode Kelas Smartboard
                 </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-3">
+            <h2 className="font-display text-sm font-extrabold text-white mb-4">
+              Kontak Pembuat Media
+            </h2>
+            <ul className="space-y-3 text-sm text-white/85">
+              <li>
+                <a
+                  href="mailto:kmilsempurna@gmail.com"
+                  className="inline-flex items-center gap-2.5 hover:text-[#F4C85A] transition-colors break-all"
+                >
+                  <Mail className="w-4 h-4 text-[#70C8E8] shrink-0" />
+                  <span>kmilsempurna@gmail.com</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/6282332920552"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 hover:text-[#F4C85A] transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#83BC7A] shrink-0" />
+                  <span>WhatsApp: 082332920552</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/sempurnain_aja"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 hover:text-[#F4C85A] transition-colors"
+                >
+                  <Instagram className="w-4 h-4 text-[#F4C85A] shrink-0" />
+                  <span>Instagram: @sempurnain_aja</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/sempurnain"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 hover:text-[#F4C85A] transition-colors"
+                >
+                  <Github className="w-4 h-4 text-white shrink-0" />
+                  <span>GitHub: github.com/sempurnain</span>
+                </a>
               </li>
             </ul>
           </div>

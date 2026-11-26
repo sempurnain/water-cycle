@@ -67,6 +67,20 @@ function AppShell() {
     return () => unsub();
   }, [setTeacherAuth, setClasses, setStudents, setSessions]);
 
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const timer = window.setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 60);
+      return () => window.clearTimeout(timer);
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location.pathname, location.hash]);
+
   const isImmersiveRoute =
     location.pathname.startsWith('/classroom/') ||
     location.pathname === '/learn/explore' ||

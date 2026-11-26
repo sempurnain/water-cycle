@@ -1,74 +1,26 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
 import {
   ArrowRight,
   Award,
   BookOpen,
   CheckCircle2,
   Compass,
-  Droplets,
   Flag,
   Gamepad2,
-  Lock,
   MonitorPlay,
   Play,
   Sliders,
   Sparkles,
-  Star,
   Swords,
   User,
   Users,
-  Volume2,
-  VolumeX,
 } from 'lucide-react';
-import {
-  ACHIEVEMENT_BADGES,
-  CHARACTER_PROFILES,
-  EXPLORE_REGIONS,
-  HERO_ARTWORK_URL,
-} from '../data/waterCycleData';
+import { EXPLORE_REGIONS, HERO_ARTWORK_URL } from '../data/waterCycleData';
 import { useAppStore } from '../store/useAppStore';
 import { audioService } from '../services/audioService';
-import { RegionId, WaterCycleStage } from '../types';
+import { RegionId } from '../types';
 import { assetUrl } from '../utils/assetUrl';
-
-const HERO_STAGES: {
-  id: WaterCycleStage | 'all';
-  label: string;
-  caption: string;
-}[] = [
-  {
-    id: 'all',
-    label: 'Semua Siklus',
-    caption:
-      'Siklus air berlangsung terus-menerus dari lautan, membentuk awan di langit, turun sebagai hujan, dan mengalir kembali ke laut.',
-  },
-  {
-    id: 'evaporasi',
-    label: '1. Evaporasi',
-    caption:
-      'Panas Matahari menguapkan air laut menjadi gas uap air tak kasatmata yang naik menuju atmosfer.',
-  },
-  {
-    id: 'kondensasi',
-    label: '2. Kondensasi',
-    caption:
-      'Di langit yang tinggi dan dingin, uap air mengembun menjadi tetesan air kecil atau kristal es penyusun awan.',
-  },
-  {
-    id: 'presipitasi',
-    label: '3. Presipitasi',
-    caption:
-      'Saat tetesan air di awan menjadi berat, gaya gravitasi menariknya jatuh ke daratan sebagai hujan.',
-  },
-  {
-    id: 'pengumpulan',
-    label: '4. Pengumpulan Air',
-    caption:
-      'Air hujan mengalir menyusuri sungai dan lembah, meresap ke dalam tanah, lalu berkumpul kembali di lautan.',
-  },
-];
 
 const STORY_STAGES = [
   {
@@ -125,348 +77,84 @@ const DESTINATION_IMAGES: Record<RegionId, string> = {
   'forest-of-life': assetUrl('src/assets/images/dest_forest_life_1795183950994.jpg'),
 };
 
-const FINAL_CTA_ARTWORK = assetUrl('src/assets/images/cta_aqua_horizon_1795183950182.jpg');
-
-const VAPOR_PARTICLES = [12, 24, 38, 52, 66, 78, 88];
-const RAIN_STREAKS = [18, 28, 37, 46, 56, 65, 74, 83, 91];
-
-function HeroAtmosphereEffects({ stage }: { stage: WaterCycleStage | 'all' }) {
-  const showVapor = stage === 'all' || stage === 'evaporasi';
-  const showClouds = stage === 'all' || stage === 'kondensasi';
-  const showRain = stage === 'presipitasi';
-  const showFlow = stage === 'pengumpulan';
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {/* Shimmering sun aura upper right */}
-      <motion.div
-        animate={{ opacity: stage === 'evaporasi' ? [0.45, 0.78, 0.45] : [0.22, 0.4, 0.22], scale: [1, 1.08, 1] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-20 right-[8%] w-80 h-80 rounded-full bg-[#F4C85A]/35 blur-3xl"
-      />
-
-      {/* Rising water vapor shimmer */}
-      {showVapor &&
-        VAPOR_PARTICLES.map((leftPct, i) => (
-          <motion.div
-            key={`vapor-${leftPct}`}
-            initial={{ y: 120, opacity: 0 }}
-            animate={{ y: -220, opacity: [0, 0.55, 0] }}
-            transition={{
-              duration: 5 + (i % 3) * 1.3,
-              repeat: Infinity,
-              delay: i * 0.55,
-              ease: 'easeOut',
-            }}
-            style={{ left: `${leftPct}%`, bottom: '12%' }}
-            className="absolute w-3.5 h-3.5 rounded-full bg-white/55 blur-[1px]"
-          />
-        ))}
-
-      {/* Soft drifting cloud puffs */}
-      {showClouds && (
-        <motion.div
-          animate={{ x: [-18, 22, -18], opacity: stage === 'kondensasi' ? 0.42 : 0.22 }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-12 right-[18%] w-64 h-24 rounded-full bg-white/60 blur-2xl"
-        />
-      )}
-
-      {/* Gentle falling precipitation streaks */}
-      {showRain &&
-        RAIN_STREAKS.map((leftPct, i) => (
-          <motion.div
-            key={`rain-${leftPct}`}
-            initial={{ y: -40, opacity: 0 }}
-            animate={{ y: 420, opacity: [0, 0.75, 0] }}
-            transition={{
-              duration: 1.5 + (i % 3) * 0.25,
-              repeat: Infinity,
-              delay: i * 0.16,
-              ease: 'linear',
-            }}
-            style={{ left: `${leftPct}%`, top: '8%' }}
-            className="absolute w-0.5 h-8 rounded-full bg-[#BCEBFF] rotate-[10deg]"
-          />
-        ))}
-
-      {/* Sparkling water ripples for collection stage */}
-      {showFlow &&
-        [45, 58, 70, 82].map((leftPct, i) => (
-          <motion.div
-            key={`flow-${leftPct}`}
-            animate={{ x: [0, 32, 0], opacity: [0.25, 0.75, 0.25] }}
-            transition={{ duration: 3.4, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
-            style={{ left: `${leftPct}%`, bottom: `${16 + (i % 2) * 8}%` }}
-            className="absolute w-16 h-1.5 rounded-full bg-[#8BE2FF]/80 blur-[1px]"
-          />
-        ))}
-    </div>
-  );
-}
-
-function CharacterEmblem({ id }: { id: string }) {
-  if (id === 'aqua') {
-    return (
-      <svg viewBox="0 0 64 64" className="w-14 h-14 shrink-0" aria-hidden="true">
-        <defs>
-          <linearGradient id="aquaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#70C8E8" />
-            <stop offset="100%" stopColor="#1677B8" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M32 6 C32 6 52 28 52 40 C52 51 43 58 32 58 C21 58 12 51 12 40 C12 28 32 6 32 6 Z"
-          fill="url(#aquaGrad)"
-        />
-        <circle cx="25" cy="39" r="3" fill="#24394D" />
-        <circle cx="39" cy="39" r="3" fill="#24394D" />
-        <circle cx="26" cy="38" r="1" fill="#FFFFFF" />
-        <circle cx="40" cy="38" r="1" fill="#FFFFFF" />
-        <path
-          d="M26 46 Q32 51 38 46"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-  if (id === 'sunny') {
-    return (
-      <svg viewBox="0 0 64 64" className="w-14 h-14 shrink-0" aria-hidden="true">
-        <circle cx="32" cy="32" r="16" fill="#F4C85A" />
-        <g stroke="#F4C85A" strokeWidth="3.5" strokeLinecap="round">
-          <line x1="32" y1="6" x2="32" y2="12" />
-          <line x1="32" y1="52" x2="32" y2="58" />
-          <line x1="6" y1="32" x2="12" y2="32" />
-          <line x1="52" y1="32" x2="58" y2="32" />
-          <line x1="13" y1="13" x2="18" y2="18" />
-          <line x1="46" y1="46" x2="51" y2="51" />
-          <line x1="51" y1="13" x2="46" y2="18" />
-          <line x1="18" y1="46" x2="13" y2="51" />
-        </g>
-        <circle cx="27" cy="30" r="2.3" fill="#24394D" />
-        <circle cx="37" cy="30" r="2.3" fill="#24394D" />
-        <path
-          d="M27 36 Q32 40 37 36"
-          fill="none"
-          stroke="#24394D"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-  if (id === 'cloudy') {
-    return (
-      <svg viewBox="0 0 64 64" className="w-14 h-14 shrink-0" aria-hidden="true">
-        <path
-          d="M18 46 H48 C53 46 57 42 57 37 C57 32 53 28 48 28 C47 21 40 16 32 16 C23 16 17 22 16 29 C11 30 7 34 7 39 C7 43 11 46 18 46 Z"
-          fill="#EBF6FC"
-          stroke="#70C8E8"
-          strokeWidth="2.5"
-        />
-        <circle cx="27" cy="33" r="2.2" fill="#24394D" />
-        <circle cx="38" cy="33" r="2.2" fill="#24394D" />
-        <path
-          d="M29 38 Q32.5 41 36 38"
-          fill="none"
-          stroke="#24394D"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-  if (id === 'rainy') {
-    return (
-      <svg viewBox="0 0 64 64" className="w-14 h-14 shrink-0" aria-hidden="true">
-        <path
-          d="M19 36 H46 C50 36 53 33 53 29 C53 25 50 22 46 22 C45 16 39 12 32 12 C25 12 20 17 19 23 C14 23 11 26 11 30 C11 33 14 36 19 36 Z"
-          fill="#70C8E8"
-        />
-        <path d="M22 43 L19 52" stroke="#1677B8" strokeWidth="3.2" strokeLinecap="round" />
-        <path d="M32 45 L29 55" stroke="#1677B8" strokeWidth="3.2" strokeLinecap="round" />
-        <path d="M42 43 L39 52" stroke="#1677B8" strokeWidth="3.2" strokeLinecap="round" />
-        <circle cx="27" cy="25" r="2" fill="#24394D" />
-        <circle cx="37" cy="25" r="2" fill="#24394D" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 64 64" className="w-14 h-14 shrink-0" aria-hidden="true">
-      <rect x="29" y="34" width="6" height="22" rx="3" fill="#7D563B" />
-      <circle cx="32" cy="25" r="16" fill="#83BC7A" />
-      <circle cx="22" cy="28" r="10" fill="#6AA862" />
-      <circle cx="42" cy="28" r="10" fill="#92CA89" />
-      <circle cx="28" cy="25" r="2" fill="#24394D" />
-      <circle cx="36" cy="25" r="2" fill="#24394D" />
-      <path
-        d="M29 30 Q32 33 35 30"
-        fill="none"
-        stroke="#24394D"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export function LandingPage() {
-  const {
-    isMuted,
-    toggleMute,
-    exploredRegions,
-    completedMissions,
-    unlockedBadges,
-    totalStars,
-    totalScore,
-  } = useAppStore();
-
-  const [heroStage, setHeroStage] = useState<WaterCycleStage | 'all'>('all');
-  const [heroStageNote, setHeroStageNote] = useState<string>(HERO_STAGES[0].caption);
+  const { exploredRegions, completedMissions } = useAppStore();
   const [heroImageFailed, setHeroImageFailed] = useState(false);
-  const [ctaImageFailed, setCtaImageFailed] = useState(false);
-
-  const handleSelectHeroStage = (stage: WaterCycleStage | 'all', caption?: string) => {
-    audioService.playWaterDrop();
-    setHeroStage(stage);
-    const matched = HERO_STAGES.find((s) => s.id === stage);
-    setHeroStageNote(caption || matched?.caption || HERO_STAGES[0].caption);
-  };
 
   return (
     <div className="bg-[#F4F7FA] text-[#24394D] overflow-x-clip">
       {/* =========================================================
-          SECTION 1: FULL-BLEED ANIMATED SCENIC HERO (TANPA 3D)
+          SECTION 1: FULL-SCREEN 1920x1080 WIDESCREEN HERO
       ========================================================= */}
-      <section className="relative min-h-[600px] lg:min-h-[670px] flex items-center overflow-hidden bg-gradient-to-br from-[#1677B8] via-[#1C4D75] to-[#24394D] text-white">
+      <section
+        id="beranda"
+        className="relative w-full min-h-[560px] h-[calc(100vh-4rem)] max-h-[1080px] flex items-center overflow-hidden bg-gradient-to-br from-[#1677B8] via-[#1C4D75] to-[#24394D] text-white"
+      >
         {!heroImageFailed && (
-          <motion.img
+          <img
             src={HERO_ARTWORK_URL}
             alt="Panorama siklus air Nusantara bersama tetesan air Aqua dari laut ke pegunungan dan sungai"
             referrerPolicy="no-referrer"
             onError={() => setHeroImageFailed(true)}
-            animate={{ scale: [1.03, 1.09, 1.03] }}
-            transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         )}
 
-        {/* High-contrast directional gradient scrim so text on left stays super sharp */}
+        {/* High-contrast directional gradient scrim so text stays sharp over full-bleed photo */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[#0E2235]/92 via-[#153654]/78 to-[#1677B8]/25"
+          className="absolute inset-0 bg-gradient-to-r from-[#0E2235]/88 via-[#153654]/68 to-[#1677B8]/15"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[#0E2235]/80 via-transparent to-[#0E2235]/30"
+          className="absolute inset-0 bg-gradient-to-t from-[#0E2235]/60 via-transparent to-[#0E2235]/20"
         />
 
-        {/* Animated atmospheric effects reactive to chosen stage */}
-        <HeroAtmosphereEffects stage={heroStage} />
-
-        <div className="relative z-10 max-w-[1360px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-20">
-          <div className="max-w-2xl space-y-6">
-            {/* Unboxed Metadata Header + Sound Toggle */}
-            <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm font-extrabold tracking-wide text-[#8CE0FF]">
-              <span className="inline-flex items-center gap-1.5">
-                <Droplets className="w-4 h-4 text-[#F4C85A]" />
-                IPAS KELAS V SD/MI
-              </span>
-              <span aria-hidden="true" className="text-white/40">
-                ·
-              </span>
-              <span className="text-white/90">PEMBELAJARAN SIKLUS AIR INDONESIA</span>
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold transition-colors cursor-pointer min-h-[36px]"
-                aria-label={isMuted ? 'Aktifkan efek suara' : 'Matikan efek suara'}
-              >
-                {isMuted ? (
-                  <VolumeX className="w-3.5 h-3.5 text-white/80" />
-                ) : (
-                  <Volume2 className="w-3.5 h-3.5 text-[#F4C85A]" />
-                )}
-                <span>{isMuted ? 'Senyap' : 'Suara Aktif'}</span>
-              </button>
-            </div>
-
+        <div className="relative z-10 max-w-[1440px] w-full mx-auto px-5 sm:px-8 lg:px-12 py-12">
+          <div className="max-w-xl space-y-5">
             <div className="space-y-2.5">
               <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#F4C85A]">
                 <Sparkles className="w-4 h-4 text-[#F4C85A] fill-[#F4C85A]" />
                 <span>Perjalanan Setetes Air di Alam</span>
               </div>
-              <h1 className="font-display text-5xl sm:text-6xl xl:text-[4.25rem] font-extrabold text-white leading-[1.03] tracking-tight drop-shadow-sm">
+              <h1 className="font-hero text-5xl sm:text-6xl xl:text-[5rem] font-bold text-white leading-[1.02] tracking-wide drop-shadow-[0_4px_18px_rgba(14,34,53,0.45)]">
                 WATER <span className="text-[#70C8E8]">CYCLE</span>
               </h1>
             </div>
 
-            <p className="text-base sm:text-lg text-white/92 leading-relaxed font-medium">
+            <p className="text-sm sm:text-base lg:text-lg text-white/92 leading-relaxed font-medium">
               Ikuti petualangan seru <strong className="font-bold text-[#F4C85A]">Aqua</strong>,
               tetesan air yang berputar dari lautan luas menuju langit, membentuk awan di{' '}
               <em>Kerajaan Awan</em>, turun sebagai hujan di <em>Pegunungan Hujan</em>, lalu
               mengalir kembali ke laut.
             </p>
 
-            {/* Primary + Secondary CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-1">
+            {/* Slim, sleek hero action buttons */}
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
               <Link
                 to="/play"
                 onClick={() => audioService.playWaterDrop()}
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-base shadow-[0_6px_0_#b98d22] active:translate-y-0.5 active:shadow-[0_2px_0_#b98d22] transition-all min-h-[54px]"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm shadow-sm transition-colors"
               >
-                <Play className="w-5 h-5 fill-[#24394D]" />
+                <Play className="w-4 h-4 fill-[#24394D]" />
                 Mulai Petualangan
               </Link>
               <Link
                 to="/learn/explore"
                 onClick={() => audioService.playClick()}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-display font-bold text-base transition-colors min-h-[54px]"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-display font-bold text-sm transition-colors"
               >
-                <Compass className="w-5 h-5 text-[#70C8E8]" />
+                <Compass className="w-4 h-4 text-[#70C8E8]" />
                 Jelajah Dunia
               </Link>
               <Link
                 to="/guide"
                 onClick={() => audioService.playClick()}
-                className="inline-flex items-center justify-center gap-1.5 px-5 py-4 rounded-2xl text-white/95 hover:text-[#F4C85A] font-display font-bold text-base transition-colors min-h-[54px]"
+                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-white/95 hover:text-[#F4C85A] font-display font-bold text-sm transition-colors"
               >
                 Cara Bermain
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-            </div>
-
-            {/* Interactive Stage Spotlight Switcher over Full-Bleed Backdrop */}
-            <div className="pt-3 space-y-2.5">
-              <p className="text-xs font-extrabold uppercase tracking-wider text-white/75">
-                Lihat Animasi Tahapan Siklus Air:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {HERO_STAGES.map((stage) => {
-                  const active = heroStage === stage.id;
-                  return (
-                    <button
-                      key={stage.id}
-                      type="button"
-                      onClick={() => handleSelectHeroStage(stage.id, stage.caption)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer min-h-[38px] border ${
-                        active
-                          ? 'bg-[#F4C85A] text-[#24394D] border-[#F4C85A] shadow-sm'
-                          : 'bg-white/15 text-white border-white/25 hover:bg-white/25'
-                      }`}
-                    >
-                      {stage.label}
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#CBEBFB] leading-relaxed bg-[#0E2235]/65 border border-white/15 rounded-xl px-4 py-2.5">
-                {heroStageNote}
-              </p>
             </div>
           </div>
         </div>
@@ -475,7 +163,7 @@ export function LandingPage() {
       {/* =========================================================
           SECTION 2: ALUR CERITA ILMIAH (4 TAHAPAN TERHUBUNG)
       ========================================================= */}
-      <section className="py-16 sm:py-20 bg-[#F4F7FA]">
+      <section id="alur-cerita" className="py-16 sm:py-20 bg-[#F4F7FA] scroll-mt-16">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-12">
             <div className="max-w-2xl space-y-2">
@@ -493,7 +181,7 @@ export function LandingPage() {
             <Link
               to="/learn/materials"
               onClick={() => audioService.playClick()}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-[#EAF4FB] border border-[#24394D]/12 text-sm font-extrabold text-[#1677B8] shadow-xs transition-colors self-start lg:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF4FB] border border-[#24394D]/12 text-sm font-extrabold text-[#1677B8] shadow-xs transition-colors self-start lg:self-auto"
             >
               <BookOpen className="w-4 h-4" />
               Pelajari 8 Modul Lengkap
@@ -559,7 +247,10 @@ export function LandingPage() {
       {/* =========================================================
           SECTION 3: BENTO FITUR WATER CYCLE
       ========================================================= */}
-      <section className="py-16 sm:py-20 bg-white border-y border-[#24394D]/8">
+      <section
+        id="pembelajaran-interaktif"
+        className="py-16 sm:py-20 bg-white border-y border-[#24394D]/8 scroll-mt-16"
+      >
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-10 space-y-2">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1677B8]">
@@ -592,11 +283,11 @@ export function LandingPage() {
                     atmosfer pada simulator ilmiah!
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-2.5 pt-2">
                   <Link
                     to="/learn/explore"
                     onClick={() => audioService.playWaterDrop()}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm transition-colors"
                   >
                     <Compass className="w-4 h-4" />
                     Buka Jelajah Dunia
@@ -604,7 +295,7 @@ export function LandingPage() {
                   <Link
                     to="/learn/simulator"
                     onClick={() => audioService.playClick()}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-display font-bold text-sm transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-display font-bold text-sm transition-colors"
                   >
                     <Sliders className="w-4 h-4" />
                     Simulator Siklus Air
@@ -636,11 +327,11 @@ export function LandingPage() {
                   Dilengkapi tombol narasi suara Bahasa Indonesia!
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 <Link
                   to="/learn/materials"
                   onClick={() => audioService.playClick()}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1677B8] hover:bg-[#126298] text-white font-display font-bold text-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1677B8] hover:bg-[#126298] text-white font-display font-bold text-sm transition-colors"
                 >
                   Baca Materi Interaktif
                   <ArrowRight className="w-4 h-4" />
@@ -648,7 +339,7 @@ export function LandingPage() {
                 <Link
                   to="/learn"
                   onClick={() => audioService.playClick()}
-                  className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white text-[#24394D] border border-[#24394D]/12 font-display font-bold text-sm hover:bg-[#F4F7FA]"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-[#24394D] border border-[#24394D]/12 font-display font-bold text-sm hover:bg-[#F4F7FA]"
                 >
                   Semua Menu
                 </Link>
@@ -739,12 +430,15 @@ export function LandingPage() {
       {/* =========================================================
           SECTION 4: 5 DESTINASI WILAYAH PETUALANGAN
       ========================================================= */}
-      <section className="py-16 sm:py-20 bg-gradient-to-b from-[#EDF7FD] to-[#F4F7FA]">
+      <section
+        id="peta-petualangan"
+        className="py-16 sm:py-20 bg-gradient-to-b from-[#EDF7FD] to-[#F4F7FA] scroll-mt-16"
+      >
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div className="space-y-2 max-w-2xl">
               <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1677B8]">
-                Peta Wilayah Petualangan
+                Peta Petualangan Wilayah
               </p>
               <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-[#24394D]">
                 Lima Pulau &amp; Wilayah Siklus Air
@@ -819,7 +513,7 @@ export function LandingPage() {
       {/* =========================================================
           SECTION 5: TIGA MODE PERMAINAN + PAPAN INTERAKTIF
       ========================================================= */}
-      <section className="py-16 sm:py-20 bg-white border-y border-[#24394D]/8">
+      <section className="py-16 sm:py-20 bg-white border-t border-[#24394D]/8">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1677B8]">
@@ -855,7 +549,7 @@ export function LandingPage() {
               <Link
                 to="/play?mode=solo"
                 onClick={() => audioService.playWaterDrop()}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#1677B8] hover:bg-[#126298] text-white font-display font-extrabold text-sm transition-colors min-h-[48px]"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1677B8] hover:bg-[#126298] text-white font-display font-extrabold text-sm transition-colors"
               >
                 Pilih Mode Mandiri
                 <ArrowRight className="w-4 h-4" />
@@ -882,7 +576,7 @@ export function LandingPage() {
               <Link
                 to="/play?mode=duel"
                 onClick={() => audioService.playWaterDrop()}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm transition-colors min-h-[48px]"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm transition-colors"
               >
                 Pilih Tantangan Duel
                 <ArrowRight className="w-4 h-4" />
@@ -909,7 +603,7 @@ export function LandingPage() {
               <Link
                 to="/play?mode=squad"
                 onClick={() => audioService.playWaterDrop()}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#83BC7A] hover:bg-[#6FA966] text-white font-display font-extrabold text-sm transition-colors min-h-[48px]"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#83BC7A] hover:bg-[#6FA966] text-white font-display font-extrabold text-sm transition-colors"
               >
                 Pilih Mode Kelompok
                 <ArrowRight className="w-4 h-4" />
@@ -937,190 +631,11 @@ export function LandingPage() {
             <Link
               to="/classroom/AQUA5A"
               onClick={() => audioService.playClick()}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm whitespace-nowrap shrink-0 min-h-[46px]"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-sm whitespace-nowrap shrink-0"
             >
               Buka Papan Kelas
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          SECTION 6: KARAKTER & LENCANA PENCAPAIAN NYATA
-      ========================================================= */}
-      <section className="py-16 sm:py-20 bg-[#F4F7FA]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div>
-            <div className="max-w-2xl mb-8 space-y-2">
-              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1677B8]">
-                Sahabat Petualanganmu
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-[#24394D]">
-                Kenali 5 Karakter Dunia Water Cycle
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-              {CHARACTER_PROFILES.map((char) => (
-                <div
-                  key={char.id}
-                  className="rounded-2xl bg-white border border-[#24394D]/10 p-5 space-y-3 shadow-xs"
-                >
-                  <div className="flex items-center gap-3">
-                    <CharacterEmblem id={char.id} />
-                    <div>
-                      <h3 className="font-display text-lg font-extrabold text-[#24394D]">
-                        {char.name}
-                      </h3>
-                      <p className="text-xs font-bold" style={{ color: char.color }}>
-                        {char.role}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-[#24394D]/80 leading-relaxed">{char.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] bg-white border border-[#24394D]/10 p-6 sm:p-8 shadow-sm space-y-6">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1677B8]">
-                  Progres &amp; Lencana Nyata Kamu
-                </p>
-                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#24394D]">
-                  Koleksi Lencana Penjelajah Siklus Air
-                </h2>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-[#F4C85A] fill-[#F4C85A]" />
-                  <div>
-                    <p className="text-lg font-extrabold font-display tabular-nums leading-none">
-                      {totalStars}
-                    </p>
-                    <p className="text-[11px] font-bold text-[#24394D]/65">Bintang</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-[#1677B8]" />
-                  <div>
-                    <p className="text-lg font-extrabold font-display tabular-nums leading-none">
-                      {unlockedBadges.length}/{ACHIEVEMENT_BADGES.length}
-                    </p>
-                    <p className="text-[11px] font-bold text-[#24394D]/65">Lencana</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-[#83BC7A]" />
-                  <div>
-                    <p className="text-lg font-extrabold font-display tabular-nums leading-none">
-                      {totalScore}
-                    </p>
-                    <p className="text-[11px] font-bold text-[#24394D]/65">Total Skor</p>
-                  </div>
-                </div>
-                <Link
-                  to="/achievements"
-                  onClick={() => audioService.playClick()}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#24394D] hover:bg-[#192836] text-white text-xs font-extrabold transition-colors"
-                >
-                  Detail Pencapaian
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-              {ACHIEVEMENT_BADGES.slice(0, 4).map((badge) => {
-                const unlocked = unlockedBadges.includes(badge.id);
-                return (
-                  <div
-                    key={badge.id}
-                    className={`rounded-2xl p-4 border flex items-start gap-3 ${
-                      unlocked
-                        ? 'bg-[#FFF9EA] border-[#F4C85A]'
-                        : 'bg-[#F4F7FA] border-[#24394D]/10 opacity-85'
-                    }`}
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                        unlocked
-                          ? 'bg-[#F4C85A] text-[#24394D]'
-                          : 'bg-[#24394D]/10 text-[#24394D]/50'
-                      }`}
-                    >
-                      {unlocked ? <Award className="w-5 h-5" /> : <Lock className="w-4 h-4" />}
-                    </div>
-                    <div className="space-y-0.5 min-w-0">
-                      <p className="font-display font-extrabold text-sm text-[#24394D]">
-                        {badge.title}
-                      </p>
-                      <p className="text-xs text-[#24394D]/75 leading-snug">
-                        {badge.requirementText}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          SECTION 7: CTA PANORAMA AKHIR (FULL-BLEED)
-      ========================================================= */}
-      <section className="py-12 sm:py-16 bg-[#F4F7FA]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-[2.25rem] overflow-hidden min-h-[340px] sm:min-h-[380px] flex items-center shadow-lg bg-gradient-to-br from-[#1677B8] to-[#24394D]">
-            {!ctaImageFailed && (
-              <img
-                src={FINAL_CTA_ARTWORK}
-                alt="Panorama dunia petualangan Water Cycle bersama tetesan air Aqua"
-                referrerPolicy="no-referrer"
-                onError={() => setCtaImageFailed(true)}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            )}
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-r from-[#24394D]/92 via-[#24394D]/78 to-[#1677B8]/40"
-            />
-
-            <div className="relative z-10 max-w-2xl p-8 sm:p-12 lg:p-14 space-y-5 text-white">
-              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#F4C85A]">
-                Petualangan IPAS Kelas V Menantimu
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-                Siap Menjadi Penjelajah Siklus Air?
-              </h2>
-              <p className="text-sm sm:text-base text-white/90 leading-relaxed">
-                Ajak teman sekelasmu atau mulai belajar mandiri bersama Aqua, Sunny, Cloudy, Rainy,
-                dan Flora sekarang langsung melalui browser tanpa memasang aplikasi tambahan!
-              </p>
-              <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                <Link
-                  to="/play"
-                  onClick={() => audioService.playWaterDrop()}
-                  className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-[#F4C85A] hover:bg-[#ebbb45] text-[#24394D] font-display font-extrabold text-base shadow-[0_6px_0_#c99c2c] active:translate-y-0.5 transition-all min-h-[54px]"
-                >
-                  <Play className="w-5 h-5 fill-[#24394D]" />
-                  Mulai Petualangan
-                </Link>
-                <Link
-                  to="/learn/explore"
-                  onClick={() => audioService.playClick()}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-display font-bold text-base transition-colors min-h-[54px]"
-                >
-                  <Compass className="w-5 h-5 text-[#70C8E8]" />
-                  Buka Jelajah Dunia
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </section>
